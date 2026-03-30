@@ -60,3 +60,59 @@ console.log(foo); // 123
 console.log(bar); // ReferenceError: bar is not defined
 ```
 
+var 키워드로는 동일한 이름을 갖는 변수를 중복하여 선언할수 있었지만 let 키워드로는 동일한 이름을 갖는 변수를 중복해서 선언할 수 없다.
+
+호이스팅이란 var 선언문이나 function 선언문 등을 해당 스코프의 선두로 옮긴 것처럼 동작하는 특성을 말한다.
+하지만 var 키워드로 선언된 변수와는 달리 let 키워드로 선언된 변수를 선언문 이전에 참조하면 참조 에러가 발생한다. 이는 let 키워드로 선언된 변수는 스코프의 시작에서 변수의 선언까지 일시적 사각지대에 빠지기 때문이다.
+
+var 키워드로 선언된 변수는 선언 단계와 초기화 단계가 한번에 이루어진다. 즉, 스코프에 변수를 등록하고 메모리에 변수를 위한 공간을 확보한 후, undefined로 초기화한다. 따라서 변수 선언문 이전에 변수에 접근하여도 스코프에 변수가 존재하기 때문에 에러가 발생하지 않는다.
+다만 undefined를 반환한다. 이후 변수 할당문에 도달하면 비로소 값이 할당된다. 이러한 현상을 변수 호이스팅이라 한다.
+```
+let foo = 1; // 전역 변수
+
+{
+  console.log(foo); // ReferenceError: foo is not defined
+  let foo = 2; // 지역 변수
+}
+```
+
+```
+var funcs = [];
+
+// 함수의 배열을 생성하는 for 루프의 i는 전역 변수다.
+for (var i = 0; i < 3; i++) {
+  funcs.push(function () { console.log(i); });
+}
+
+// 배열에서 함수를 꺼내어 호출한다.
+for (var j = 0; j < 3; j++) {
+  funcs[j]();
+}
+```
+안에 i i i가 들어가고 i는 최종적으로 3이기 때문에 3이 3번 출력된다.
+
+const는 상수를 위해 사용한다. 하지만 반드시 상수만을 위해 사용하지는 않는다. 이에 대해서는 후반부에 설명한다. const의 특징은 let과 대부분 동일하다.
+
+let과 const 차이점
+
+let은 재할당이 자유로우나 const는 재할당이 금지된다.
+```
+const FOO = 123;
+FOO = 456; // TypeError: Assignment to constant variable.
+```
+주의할 점은 const는 반드시 선언과 동시에 할당이 이루어져야 한다는 것이다. 그렇지 않으면 다음처럼 문법 에러가 발생한다.
+```
+const FOO; // SyntaxError: Missing initializer in const declaration
+```
+또한, const는 let과 마찬가지로 블록 레벨 스코프를 갖는다.
+```
+{
+  const FOO = 10;
+  console.log(FOO); //10
+}
+console.log(FOO); // ReferenceError: FOO is not defined
+```
+
+
+
+
