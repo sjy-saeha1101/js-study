@@ -112,7 +112,30 @@ const FOO; // SyntaxError: Missing initializer in const declaration
 }
 console.log(FOO); // ReferenceError: FOO is not defined
 ```
+const는 재할당이 금지된다. 이는 const변수의 타입이 객체인 경우, 객체에 대한 참조를 변경하지 못한다는 것을 의미한다. 하지만 이때 객체의 프로퍼티는 보호되지 않는다. 즉 그 객체의 내용은 변경 가능하다.
+```
+const user = { name: 'Lee' };
 
+// const 변수는 재할당이 금지된다.
+// user = {}; // TypeError: Assignment to constant variable.
+
+// 객체의 내용은 변경할 수 있다.
+user.name = 'Kim';
+
+console.log(user); // { name: 'Kim' }
+```
+변수 선언에는 기본적으로 const를 사용하고 let은 재할당이 필요한 경우에 한정해 사용하는 것이 좋다. 원시 값의 경우, 가급적 상수를 사용하는 편이 좋다. 그리고 객체를 재할당하는 경우는 흔치 않기 때문에 const 키워드를 사용하면
+의도치 않은 재할당을 방지해 주기 때문에 보다 안전하다.
+
+### Arrow Function 화살표 함수
+-함수 선언문은 function add(){}
+-함수 표현식 let add = function(){}
+-화살표 함수 let add()=>{}
+
+// {중괄호}안에 return문이 하나이면, {중괄호} 생략 가능! 
+//   let add = () => 1 ;
+// (매개변수) 하나면 (소괄호) 없앨수 있음! 
+// let add = x => 1;
 
 
 
